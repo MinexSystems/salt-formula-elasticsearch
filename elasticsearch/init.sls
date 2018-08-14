@@ -1,10 +1,10 @@
 
 {%- if pillar.elasticsearch is defined %}
 include:
-{%- if pillar.elasticsearch.server is defined %}
+  {%- if pillar.elasticsearch.server is defined %}
 - elasticsearch.server
-{%- endif %}
-{%- if pillar.elasticsearch.client is defined %}
+  {%- endif %}
+    {%- if pillar.elasticsearch.client is defined %}
 - elasticsearch.client
-{%- endif %}
+    {%- endif %}
 {%- endif %}

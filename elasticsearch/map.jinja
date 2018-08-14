@@ -1,18 +1,18 @@
 {%- load_yaml as base_defaults %}
 Debian:
   pkgs:
-  - elasticsearch
-  - default-jre-headless
+    - elasticsearch
+    - default-jre-headless
   curator_pkgs:
-  - elasticsearch-curator
-  - cron
+    - elasticsearch-curator
+    - cron
   service: elasticsearch
   version: '1.4.4'
 RedHat:
   pkgs:
-  - elasticsearch
+    - elasticsearch
   curator_pkgs:
-  - elasticsearch-curator
+    - elasticsearch-curator
   service: elasticsearch
   version: '1.4.4'
 default:
