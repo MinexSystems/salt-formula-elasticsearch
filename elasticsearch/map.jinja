@@ -1,50 +1,38 @@
-{%- load_yaml as base_defaults %}
+{%- load_yaml as server_default %}
 Debian:
-  pkgs:
-    - elasticsearch
-    - default-jre-headless
+  enabled: False
+  pkg: elasticsearch
   curator_pkgs:
     - elasticsearch-curator
     - cron
   service: elasticsearch
-  version: '1.4.4'
+  version: '2.4.6'
+  major_version: '2'
 RedHat:
-  pkgs:
-    - elasticsearch
+  enabled: False
+  pkg: elasticsearch
   curator_pkgs:
     - elasticsearch-curator
   service: elasticsearch
-  version: '1.4.4'
+  version: '2.4.6'
+  major_version: '2'
 default:
   version: 5
 {%- endload %}
 
-{%- set server = salt['grains.filter_by'](base_defaults, merge=salt['pillar.get']('elasticsearch:server'), base='default') %}
+{%- set server = salt['grains.filter_by'](server_default, merge=salt['pillar.get']('elasticsearch:server'), base='default') %}
 
-{%- load_yaml as client_defaults %}
+{%- load_yaml as monitoring_default %}
 Debian:
-  pkgs:
-  - python-elasticsearch
-  server:
-    host: 127.0.0.1
-    port: 9200
-    binary_port: 9300
+  enabled: False
+  service_failed_warning_threshold_percent: '0.3'
+  service_failed_critical_threshold_percent: '0.6'
+  service_disk_space_watermark_minor_threshold_percent: '0.6'
+  service_disk_space_watermark_major_threshold_percent: '0.75'
 RedHat:
-  pkgs:
-  - python-elasticsearch
-  server:
-    host: 127.0.0.1
-    port: 9200
-    binary_port: 9300
+  enabled: False
+default:
+  enabled: False
 {%- endload %}
 
-{%- set client = salt['grains.filter_by'](client_defaults, merge=salt['pillar.get']('elasticsearch:client')) %}
-
-{% set monitoring = salt['grains.filter_by']({
-    'default': {
-        'service_failed_warning_threshold_percent': 0.3,
-        'service_failed_critical_threshold_percent': 0.6,
-        'service_disk_space_watermark_minor_threshold_percent': 0.6,
-        'service_disk_space_watermark_major_threshold_percent': 0.75,
-    },
-}, grain='os_family', merge=salt['pillar.get']('elasticsearch:monitoring')) %}
+{%- set monitoring = salt['grains.filter_by'](monitoring_default, merge=salt['pillar.get']('elasticsearch:monitoring'), base='default') %}

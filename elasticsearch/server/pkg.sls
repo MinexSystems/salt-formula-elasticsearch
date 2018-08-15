@@ -2,16 +2,16 @@
 
 {% if pillar.elasticsearch.server.use_repo %}
 include:
-  - elasticsearch.repo
+  - elasticsearch.server.repo
 {% endif %}
 
 elasticsearch_pkg:
   pkg.installed:
-    - name: {{ server.pkgs }}
+    - name: {{ server.pkg }}
     {% if server.version %}
-    - version: {{ elasticsearch.version }}
+    - version: {{ server.version }}
     {% endif %}
     {% if server.use_repo %}
     - require:
-      - sls: elasticsearch.repo
+      - sls: elasticsearch.server.repo
     {% endif %}

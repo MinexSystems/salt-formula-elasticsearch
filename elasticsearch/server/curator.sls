@@ -12,7 +12,7 @@ elasticsearch_curator_config:
   - mode: 640
   - template: jinja
   - require:
-    - pkg: elasticsearch_packages
+    - pkg: elasticsearch_pkg
 
 elasticsearch_curator_action_config:
   file.managed:

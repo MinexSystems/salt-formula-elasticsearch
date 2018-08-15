@@ -1,7 +1,7 @@
 {%- from "elasticsearch/map.jinja" import server with context -%}
 
 {%- if server.major_version >= 5 %}
-  {%- set repo_url = 'https://artifacts.elastic.co/packages/' ~ (elasticsearch.major_version|string) ~ '.x' %}
+  {%- set repo_url = 'https://artifacts.elastic.co/packages/' ~ (server.major_version|string) ~ '.x' %}
 {%- else %}
   {%- set repo_url = 'http://packages.elastic.co/elasticsearch/2.x' %}
 {%- endif %}

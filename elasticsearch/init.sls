@@ -1,4 +1,3 @@
-
 {%- if pillar.elasticsearch is defined %}
 include:
   {%- if pillar.elasticsearch.server is defined %}
