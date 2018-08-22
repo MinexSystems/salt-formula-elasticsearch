@@ -9,6 +9,7 @@ include:
   - elasticsearch.server.config
   - elasticsearch.server.logging
   - elasticsearch.server.jvm
+  - elasticsearch.server.plugins
 
 
 {%- if grains.get('init') == 'systemd' %}
